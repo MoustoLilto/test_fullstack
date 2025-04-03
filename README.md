@@ -7,7 +7,7 @@ __Il faudra le push sur un github public et donner le lien du repo.__
 
 ## Technologies requises
 - **Backend** : Java 17, Spring Boot
-- **Frontend** : Angular 18
+- **Frontend** : Angular 18, tailwind
 
 ## Architecture générale
 L'application sera composée de deux parties distinctes :
