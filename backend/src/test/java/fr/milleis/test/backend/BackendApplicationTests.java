@@ -1,10 +1,10 @@
-package fr.milleis.bakend;
+package fr.milleis.test.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BakendApplicationTests {
+class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
