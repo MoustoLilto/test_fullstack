@@ -2,8 +2,8 @@
 
 ## Objectif
 Créer une application de gestion de comptes bancaires composée d'un backend en Java 17 et d'un frontend en Angular 18.
-
-__Il faudra le push sur un github public et donner le lien du repo.__
+Créer une branche à votre nom et prénom (ex : test/arthur-josseau ) et push sur ce repo. 
+L'utilisation de l'intelligence artificielle est autorisée. 
 
 ## Technologies requises
 - **Backend** : Java 17, Spring Boot
@@ -11,8 +11,12 @@ __Il faudra le push sur un github public et donner le lien du repo.__
 
 ## Architecture générale
 L'application sera composée de deux parties distinctes :
-- Un web service RESTful en Java 
-- Une application frontend en Angular
+- Un web service RESTful en Java 17 (dossier backend)
+- Une application frontend en Angular 18 (dossier frontend)
+
+## Implémentation actuelle
+- Un projet backend vide est déjà a disposition avec Spring boot et la dependence  starter web
+- Un projet frontend vide est déjà a disposition avec Angular 18 et la librairie tailwind
 
 ## Spécifications fonctionnelles
 
@@ -25,7 +29,7 @@ L'application sera composée de deux parties distinctes :
 #### Structure de données d'un compte
 | Champ       | Type        | Description                                                       |
 | ----------- | ----------- | ----------------------------------------------------------------- |
-| id          | number | Identifiant unique du compte                                      |
+| id          | number      | Identifiant unique du compte                                      |
 | nom         | String      | Nom du compte                                                     |
 | iban        | String      | IBAN du compte                                                    |
 | type        | Enum        | COURANT ou EPARGNE                                                |
@@ -133,6 +137,7 @@ OU
 ## Livraison attendue
 
 - Code source complet (backend et frontend)
+- Que les projets compile. Il n'est pas nécessaire qu'ils fonctionnent.
 
 ## Bonus (optionnel)
 
