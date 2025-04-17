@@ -4,7 +4,14 @@
 Créer une application de gestion de comptes bancaires composée d'un backend en Java 17 et d'un frontend en Angular 18.
 Créer une branche à votre nom et prénom (ex : test/arthur-josseau ) et push sur ce repo. 
 L'utilisation de l'intelligence artificielle est autorisée. 
-Ne pas prendre en compte la base de donnée, des données en dur suffiront a la place du JPA repository.
+
+## Livraison attendue
+
+- Code source complet (backend et frontend)
+- Que les projets compilent. Il n'est pas nécessaire qu'ils fonctionnent. (Inutile d'implémenter un H2 ou une base de donnée, inutile de tester si le projet démarre, possibilité de mock pour le backend ou une implémentation de data jpa repository, inutile de passer du temps sur l'intégration entre le back et le front, les contrats d'interfaces et les api suffisent. )
+- Vous serez jugé sur la pertinence des implémentations au vu du temps impartie ( balance qualité / délai ) et sur la quantité de points validés ci-dessous. 
+- Aucunes architectures spécifiques n'est imposée. 
+- Aucunes bonnes pratiques spécifiques n'est imposée. 
 
 ## Technologies requises
 - **Backend** : Java 17, Spring Boot
@@ -135,15 +142,11 @@ OU
 - Affichage des messages d'erreur
 - Gestion des états de chargement (loader)
 
-## Livraison attendue
-
-- Code source complet (backend et frontend)
-- Que les projets compile. Il n'est pas nécessaire qu'ils fonctionnent.
 
 ## Bonus (optionnel)
 
 - Authentification des utilisateurs
 - Historique des transactions
 - Filtres et recherche dans la liste des comptes
-- TDD
+- Tests unitaires
 - documentation API (ex : swagger )
