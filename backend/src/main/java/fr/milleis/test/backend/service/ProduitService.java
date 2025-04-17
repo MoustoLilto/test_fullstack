@@ -100,4 +100,39 @@ public class ProduitService {
         return produits.values().stream()
                 .collect(Collectors.groupingBy(Produit::categorie));
     }
+
+    /**
+     * Update the stock of a product
+     * @param id the ID of the product
+     * @param quantityChange the change in quantity (negative for decrease, positive for increase)
+     * @return the updated product if found and stock is sufficient, null otherwise
+     */
+    public Produit updateStock(Integer id, Integer quantityChange) {
+        Produit produit = findById(id);
+        if (produit == null) {
+            return null;
+        }
+
+        // Calculate new stock
+        int newStock = produit.stock() + quantityChange;
+
+        // Check if new stock is valid
+        if (newStock < 0) {
+            return null;
+        }
+
+        // Create updated product with new stock
+        Produit updatedProduit = new Produit(
+            produit.id(),
+            produit.nom(),
+            produit.reference(),
+            produit.categorie(),
+            produit.prix(),
+            produit.delaiDeLivraison(),
+            newStock
+        );
+
+        produits.put(id, updatedProduit);
+        return updatedProduit;
+    }
 }
