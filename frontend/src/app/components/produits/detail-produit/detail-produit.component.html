@@ -1,0 +1,9 @@
+<div *ngIf="produit" class="container mx-auto">
+  <h1>{{ produit.nom }}</h1>
+  <p>Référence: {{ produit.reference }}</p>
+  <p>Prix: {{ produit.prix }}€</p>
+  <p *ngIf="produit.categorie === 'STANDARD'">Stock: {{ produit.stock }}</p>
+  <p *ngIf="produit.categorie === 'SUR_COMMANDE'">
+    Délai de livraison: {{ produit.delaiLivraison }} jours
+  </p>
+</div>

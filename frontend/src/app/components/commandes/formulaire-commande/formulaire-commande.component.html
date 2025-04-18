@@ -1,0 +1,23 @@
+<div class="container mx-auto">
+  <form [formGroup]="commandeForm" (ngSubmit)="onSubmit()">
+    <label for="produitId">Produit ID:</label>
+    <input id="produitId" formControlName="produitId" type="number" />
+
+    <label for="quantite">Quantité:</label>
+    <input id="quantite" formControlName="quantite" type="number" />
+
+    <label for="dateLivraisonSouhaitee">Date de livraison souhaitée:</label>
+    <input id="dateLivraisonSouhaitee" formControlName="dateLivraisonSouhaitee" type="date" />
+
+    <label for="adresseLivraison">Adresse de livraison:</label>
+    <input id="adresseLivraison" formControlName="adresseLivraison" type="text" />
+
+    <label for="modePaiement">Mode de paiement:</label>
+    <select id="modePaiement" formControlName="modePaiement">
+      <option value="COMPTANT">Comptant</option>
+      <option value="DIFFERE">Différé</option>
+    </select>
+
+    <button type="submit" [disabled]="commandeForm.invalid">Soumettre</button>
+  </form>
+</div>
