@@ -23,8 +23,22 @@ L'application sera composée de deux parties distinctes :
 - Une application frontend en Angular 18 (dossier frontend)
 
 ## Implémentation actuelle
-- Un projet backend vide est déjà a disposition avec Spring boot et la dependence starter web
-- Un projet frontend vide est déjà a disposition avec Angular 18 et la librairie tailwind
+- Un projet backend avec Spring Boot et la dépendance starter web
+  - API CRUD pour les produits implémentée (voir détails ci-dessous)
+  - Stockage en mémoire (sans base de données)
+- Un projet frontend vide est déjà à disposition avec Angular 18 et la librairie tailwind
+
+### API Produit implémentée
+Une API CRUD complète pour la gestion des produits a été implémentée dans le backend:
+
+- **GET /api/produits** - Récupérer tous les produits
+- **GET /api/produits/{id}** - Récupérer un produit par son ID
+- **GET /api/produits/grouped-by-categorie** - Récupérer tous les produits groupés par catégorie
+- **POST /api/produits** - Créer un nouveau produit
+- **PUT /api/produits/{id}** - Mettre à jour un produit existant
+- **DELETE /api/produits/{id}** - Supprimer un produit
+
+Pour plus de détails sur l'API, consultez le fichier [backend/README.md](backend/README.md).
 
 ## Spécifications fonctionnelles
 
