@@ -1,7 +1,7 @@
 # Test Technique Développeur Java/Angular
 
 ## Objectif
-Créer une application de gestion de produits et commandes composée d'un backend en Java 17 et d'un frontend en Angular 18.
+Créer une application de gestion des employés et congés composée d'un backend en Java 17 et d'un frontend en Angular 18.
 Créer une branche à votre nom et prénom (ex : test/arthur-josseau ) et push sur ce repo. 
 L'utilisation de l'intelligence artificielle est autorisée. 
 
@@ -23,108 +23,94 @@ L'application sera composée de deux parties distinctes :
 - Une application frontend en Angular 18 (dossier frontend)
 
 ## Implémentation actuelle
-- Un projet backend avec Spring Boot et la dépendance starter web
-  - API CRUD pour les produits implémentée (voir détails ci-dessous)
-  - Stockage en mémoire (sans base de données)
-- Un projet frontend vide est déjà à disposition avec Angular 18 et la librairie tailwind
-
-### API Produit implémentée
-Une API CRUD complète pour la gestion des produits a été implémentée dans le backend:
-
-- **GET /api/produits** - Récupérer tous les produits
-- **GET /api/produits/{id}** - Récupérer un produit par son ID
-- **GET /api/produits/grouped-by-categorie** - Récupérer tous les produits groupés par catégorie
-- **POST /api/produits** - Créer un nouveau produit
-- **PUT /api/produits/{id}** - Mettre à jour un produit existant
-- **DELETE /api/produits/{id}** - Supprimer un produit
-
-Pour plus de détails sur l'API, consultez le fichier [backend/README.md](backend/README.md).
+- Un projet backend vide est déjà a disposition avec Spring boot et la dependence starter web
+- Un projet frontend vide est déjà a disposition avec Angular 18 et la librairie tailwind
 
 ## Spécifications fonctionnelles
 
-### 1. Gestion des produits
+### 1. Gestion des employés
 
-#### Catégories de produits
-- **Produit standard** : Produit disponible à la vente immédiate
-- **Produit sur commande** : Produit nécessitant un délai de fabrication
+#### Catégories de postes
+- **Cadre** : Employé avec un statut cadre et des droits spécifiques
+- **Non-cadre** : Employé avec un statut non-cadre
 
-#### Structure de données d'un produit
-| Champ       | Type        | Description                                                       |
-| ----------- | ----------- | ----------------------------------------------------------------- |
-| id          | number      | Identifiant unique du produit                                     |
-| nom         | String      | Nom du produit                                                    |
-| reference   | String      | Référence unique du produit                                       |
-| categorie   | Enum        | STANDARD ou SUR_COMMANDE                                          |
-| prix        | Decimal     | Prix unitaire du produit                                          |
-| delaiLivraison | Integer  | Uniquement pour produits sur commande, délai en jours            |
-| stock | Integer  | Uniquement pour produits  standard            |
+#### Structure de données d'un employé
+| Champ         | Type        | Description                                                |
+| ------------- | ----------- | ---------------------------------------------------------- |
+| id            | number      | Identifiant unique de l'employé                           |
+| nom           | String      | Nom de l'employé                                          |
+| prenom        | String      | Prénom de l'employé                                       |
+| categorie     | Enum        | CADRE ou NON_CADRE                                        |
+| dateEmbauche  | Date        | Date d'embauche de l'employé                              |
+| soldeConges   | Decimal     | Solde de jours de congés disponibles                      |
+| soldeRTT      | Decimal     | Uniquement pour les cadres, solde de jours de RTT         |
 
 ### 2. Fonctionnalités à implémenter
 
-#### Visualisation des produits
-- **Liste des produits** : Afficher tous les produits, regrouper les produits par catégorie (standard/sur commande)
-- **Vue détaillée** : Page dédiée pour afficher les détails d'un produit spécifique
+#### Visualisation des employés
+- **Liste des employés** : Afficher tous les employés, regrouper par catégorie (cadre/non-cadre)
+- **Vue détaillée** : Page dédiée pour afficher les détails d'un employé spécifique
 
-#### Gestion des commandes
-- **Sélection des produits** : 
-  - Produits à commander
-  - Quantités pour chaque produit
-- **Paramètres de la commande** : 
-  - Date de livraison souhaitée
-  - Adresse de livraison
-  - Mode de paiement (comptant, différé)
+#### Gestion des congés
+- **Sélection de l'employé** : 
+  - Employé demandeur de congés
+- **Paramètres du congé** : 
+  - Date de début
+  - Date de fin
+  - Type de congé (congé payé, RTT, sans solde)
 - **Validations** :
-  - Vérification de la disponibilité des produits standards
-  - Respect des délais minimums pour les produits sur commande
+  - Vérification du solde disponible
+  - Respect des règles d'attribution selon la catégorie
+  - Impossibilité d'attribuer des RTT à un employé non-cadre
 
 #### Gestion des erreurs
 - **Format des erreurs** : 
   - Code d'erreur codifié (ex: ER012345)
   - Message descriptif
 - **Types d'erreurs à gérer** :
-  - Produit indisponible
-  - Délai de livraison impossible
-  - Quantité invalide
-  - Erreurs de validation des données (produit inexistant, référence incorrecte)
+  - Solde insuffisant
+  - Droit non applicable (RTT pour non-cadre)
+  - Dates invalides
+  - Erreurs de validation des données (employé inexistant, chevauchement avec un congé existant)
 
 ## Spécifications techniques
 
 ### Backend (Java 17)
 
-#### Exemple de structure de réponse pour les produits standards
+#### Exemple de structure de réponse pour les employés non-cadres
 ```json
 [
   {
   "id": 12345678,
-  "nom": "Écran 24 pouces",
-  "reference": "ECR24-2023",
-  "categorie": "STANDARD",
-  "prix": 199.99,
-  "stock": 10
+  "nom": "Dupont",
+  "prenom": "Jean",
+  "categorie": "NON_CADRE",
+  "dateEmbauche": "2022-09-01",
+  "soldeConges": 25.0
 }
 ]
 ```
 
-#### Exemple de structure de réponse pour les produits sur commande
+#### Exemple de structure de réponse pour les employés cadres
 ```json
 [{
   "id": 98765432,
-  "nom": "Bureau sur mesure",
-  "reference": "BUR-CUSTOM-2023",
-  "categorie": "SUR_COMMANDE",
-  "prix": 349.99,
-  "delaiLivraison": 15
+  "nom": "Martin",
+  "prenom": "Sophie",
+  "categorie": "CADRE",
+  "dateEmbauche": "2021-03-15",
+  "soldeConges": 25.0,
+  "soldeRTT": 12.0
 }]
 ```
 
-#### Exemple de structure pour la requête de commande ( les dates peuvent être des timestamps ou des dates )
+#### Exemple de structure pour la requête de congé (les dates peuvent être des timestamps ou des dates )
 ```json
 {
-  "produitId": 12345678,
-  "quantite": 2,
-  "dateLivraisonSouhaitee": "2025-05-15",
-  "adresseLivraison": "123 rue des Lilas, 75001 Paris",
-  "modePaiement": "COMPTANT"
+  "employeId": 12345678,
+  "dateDebut": "2025-07-15",
+  "dateFin": "2025-07-30",
+  "typeConge": "CONGE_PAYE"
 }
 ```
 
@@ -132,16 +118,16 @@ Pour plus de détails sur l'API, consultez le fichier [backend/README.md](backen
 ```json
 {
   "code": "ER012345",
-  "message": "Délai de livraison impossible pour le produit Bureau sur mesure"
+  "message": "Solde de congés insuffisant pour cette demande"
 }
 ```
 
 ### Frontend (Angular 18)
 
 #### Pages à implémenter
-1. **Liste des produits** - Affichage de tous les produits regroupés par catégorie
-2. **Détail d'un produit** - Affichage détaillé des informations d'un produit
-3. **Formulaire de commande** - Interface pour effectuer une commande
+1. **Liste des employés** - Affichage de tous les employés regroupés par catégorie
+2. **Détail d'un employé** - Affichage détaillé des informations d'un employé
+3. **Formulaire de demande de congé** - Interface pour effectuer une demande de congé
 
 #### Fonctionnalités UI requises
 - Navigation entre les pages
@@ -153,8 +139,7 @@ Pour plus de détails sur l'API, consultez le fichier [backend/README.md](backen
 ## Bonus (optionnel)
 
 - Authentification des utilisateurs
-- Historique des commandes
-- Un parnier avec commande groupé. 
-- Filtres et recherche dans la liste des produits
+- Historique des demandes de congés
+- Filtres et recherche dans la liste des employés
 - Tests unitaires
 - Documentation API (ex : swagger)
