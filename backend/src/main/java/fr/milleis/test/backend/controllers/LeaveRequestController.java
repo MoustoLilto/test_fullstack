@@ -15,11 +15,13 @@ import fr.milleis.test.backend.services.LeaveRequestService;
 
 @RestController
 @RequestMapping("/api/leave-requests")
-@CrossOrigin(origins = "*")
 public class LeaveRequestController {
 
-    @Autowired
-    private LeaveRequestService leaveRequestService;
+    private final LeaveRequestService leaveRequestService;
+
+    public LeaveRequestController(LeaveRequestService leaveRequestService) {
+        this.leaveRequestService = leaveRequestService;
+    }
     
     @PostMapping
     public ResponseEntity<LeaveRequestDTO> createLeaveRequest(@RequestBody CreateLeaveRequestDTO createLeaveRequestDTO) {
