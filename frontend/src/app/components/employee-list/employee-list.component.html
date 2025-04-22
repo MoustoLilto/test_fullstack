@@ -1,0 +1,104 @@
+<div class="p-6">
+  <h1 class="text-2xl font-bold mb-6">Liste des employés</h1>
+
+  <!-- Filtres -->
+  <div class="flex gap-2 mb-6">
+    <button
+      [ngClass]="{'bg-blue-600 text-white': activeCategory === 'ALL', 'bg-gray-200 text-gray-800': activeCategory !== 'ALL'}"
+      class="px-4 py-2 rounded transition-colors duration-200"
+      (click)="loadAllEmployees()">
+      Tous
+    </button>
+    <button
+      [ngClass]="{'bg-blue-600 text-white': activeCategory === 'CADRE', 'bg-gray-200 text-gray-800': activeCategory !== 'CADRE'}"
+      class="px-4 py-2 rounded transition-colors duration-200"
+      (click)="loadEmployeesByCategory(Category.CADRE)">
+      Cadres
+    </button>
+    <button
+      [ngClass]="{'bg-blue-600 text-white': activeCategory === 'NON_CADRE', 'bg-gray-200 text-gray-800': activeCategory !== 'NON_CADRE'}"
+      class="px-4 py-2 rounded transition-colors duration-200"
+      (click)="loadEmployeesByCategory(Category.NON_CADRE)">
+      Non-cadres
+    </button>
+  </div>
+
+  <!-- Message de chargement -->
+  <div *ngIf="loading" class="flex justify-center my-6">
+    <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+    {{ error }}
+  </div>
+
+  <!-- Section des cadres -->
+  <div *ngIf="cadreEmployees.length > 0 && !loading" class="mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-blue-700">Cadres</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white rounded-lg shadow-md">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-3 px-4 text-left">ID</th>
+            <th class="py-3 px-4 text-left">Nom</th>
+            <th class="py-3 px-4 text-left">Prénom</th>
+            <th class="py-3 px-4 text-left">Date d'embauche</th>
+            <th class="py-3 px-4 text-left">Solde congés</th>
+            <th class="py-3 px-4 text-left">Solde RTT</th>
+            <th class="py-3 px-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of cadreEmployees" class="border-b hover:bg-gray-50">
+            <td class="py-2 px-4">{{ employee.id }}</td>
+            <td class="py-2 px-4">{{ employee.lastName }}</td>
+            <td class="py-2 px-4">{{ employee.firstName }}</td>
+            <td class="py-2 px-4">{{ employee.hireDate }}</td>
+            <td class="py-2 px-4">{{ employee.leaveBalance }}</td>
+            <td class="py-2 px-4">{{ employee.rttBalance }}</td>
+            <td class="py-2 px-4">
+              <a [routerLink]="['/employees', employee.id]" class="text-blue-600 hover:underline">Détails</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section des non-cadres -->
+  <div *ngIf="nonCadreEmployees.length > 0 && !loading" class="mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-green-700">Non-cadres</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white rounded-lg shadow-md">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="py-3 px-4 text-left">ID</th>
+            <th class="py-3 px-4 text-left">Nom</th>
+            <th class="py-3 px-4 text-left">Prénom</th>
+            <th class="py-3 px-4 text-left">Date d'embauche</th>
+            <th class="py-3 px-4 text-left">Solde congés</th>
+            <th class="py-3 px-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of nonCadreEmployees" class="border-b hover:bg-gray-50">
+            <td class="py-2 px-4">{{ employee.id }}</td>
+            <td class="py-2 px-4">{{ employee.lastName }}</td>
+            <td class="py-2 px-4">{{ employee.firstName }}</td>
+            <td class="py-2 px-4">{{ employee.hireDate }}</td>
+            <td class="py-2 px-4">{{ employee.leaveBalance }}</td>
+            <td class="py-2 px-4">
+              <a [routerLink]="['/employees', employee.id]" class="text-blue-600 hover:underline">Détails</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Message si aucun employé -->
+  <div *ngIf="cadreEmployees.length === 0 && nonCadreEmployees.length === 0 && !loading" class="text-center py-8">
+    <p class="text-gray-500">Aucun employé trouvé</p>
+  </div>
+</div>

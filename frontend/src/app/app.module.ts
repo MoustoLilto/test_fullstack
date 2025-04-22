@@ -1,27 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListeProduitsComponent } from './components/produits/liste-produits/liste-produits.component';
-import { DetailProduitComponent } from './components/produits/detail-produit/detail-produit.component';
-import { FormulaireCommandeComponent } from './components/commandes/formulaire-commande/formulaire-commande.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { EmployeeDetailsComponent } from './components/employee-details/employee-details.component';
+import { LeaveRequestComponent } from './components/leave-request/leave-request.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListeProduitsComponent,
-    DetailProduitComponent,
-    FormulaireCommandeComponent
+    EmployeeListComponent,
+    EmployeeDetailsComponent,
+    LeaveRequestComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
